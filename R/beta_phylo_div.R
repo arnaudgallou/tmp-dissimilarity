@@ -20,12 +20,6 @@
       {
         ptree <- read.tree("data/tree.txt")
 
-        mdf %>%
-          get_taxa_tbl(
-            c("erigeron", "rosa"),
-            "vagus|compositus|clokeyi|coulteri|mancus"
-          ) %>%
-          extend()
         communities <- mdf %>%
           get_taxa_tbl("erigeron", "vagus|compositus|clokeyi|coulteri|mancus") %>%
           extend()
