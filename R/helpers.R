@@ -93,7 +93,6 @@ get_taxa_tbl <- function(x, .genus, .species, level = c("species", "genus")) {
     if (length(.genus) > 1) {
       .genus <- paste(.genus, collapse = "|")
     }
-    print(.genus)
     pattern <- sprintf("(?i)(?:%s)_(?:%s)", .genus, .species)
     .expr <- expr(str_detect(.data[["species"]], pattern))
   } else {
