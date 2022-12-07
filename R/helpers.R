@@ -113,6 +113,6 @@ get_taxa_list <- function(x, level = c("genus", "species"), within) {
   if (missing(within)) {
     return(x$species)
   }
-  x <- filter(x, tolower(genus) %in% within)
+  x <- filter(x, tolower(genus) %in% tolower(within))
   x$species
 }
