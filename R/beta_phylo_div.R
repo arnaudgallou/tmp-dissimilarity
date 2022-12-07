@@ -11,17 +11,6 @@
     mdf <- read_csv("data/taxa_df.csv")
   }
 
-####  Tree  ####
-  {
-    genus_lvl <- FALSE
-
-    ptree <- read.tree("data/tree.txt")
-
-    if (genus_lvl) {
-      ptree <- tree_to_genus(ptree, mdf)
-    }
-  }
-
 ####  Dissimilarity  ####
   {
     get_taxa_list(mdf, "genus")
@@ -29,6 +18,8 @@
 
     # · Species level ----
       {
+        ptree <- read.tree("data/tree.txt")
+
         mdf %>%
           get_taxa_tbl(
             c("erigeron", "rosa"),
@@ -57,8 +48,11 @@
 
     # · Genus level ----
       {
+        ptree <- tree_to_genus(ptree, mdf)
+        plot(ptree)
+
         communities <- mdf %>%
-          get_taxa_tbl(c("erigeron", "rosa", "cydonia"), level = "genus") %>%
+          get_taxa_tbl(c("spiraea", "cydonia"), level = "genus") %>%
           extend()
 
         communities %>%
