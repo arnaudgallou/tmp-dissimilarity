@@ -28,7 +28,7 @@
           # `difference` makes communities different (no shared taxa)
           # `n` determines the number of unshared taxa between the 2 communities
           difference(n = 2) %>%
-          long2sparse() %>%
+          long2sparse() %>% # remove the pipe to see community structures
           calc_phylo_dist(ptree)
 
         communities %>%
