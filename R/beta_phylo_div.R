@@ -42,7 +42,7 @@
 
     # · Genus level ----
       {
-        ptree <- tree_to_genus(ptree, mdf)
+        ptree <- tree_to_genus(ptree)
         plot(ptree)
 
         communities <- mdf %>%
