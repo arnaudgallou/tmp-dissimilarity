@@ -57,12 +57,8 @@ sample_by_site <- function(x, n) {
 semi_difference <- function(x, n) {
   x <- group_split(x, grids)
   imap_dfr(x, ~ {
-    if (.y == 1) {
-      i <- sample.int(nrow(.x), n)
-      slice(.x, -i)
-    } else {
-      .x
-    }
+    i <- sample.int(nrow(.x), n)
+    slice(.x, -i)
   })
 }
 
