@@ -13,18 +13,9 @@ string_extract <- function(string, pattern) {
   out
 }
 
-tips_to_genus <- function(x) {
-  x$tip.label <- first_word(x$tip.label)
-  x
-}
-
-# turn a species-level tree to genus level
-# tree - An object of class `phylo`
-# x - A data frame or tibble
-tree_to_genus <- function(tree, x) {
-  x <- condense_species(x, "species")
-  x <- trim_tree(tree, x)
-  tips_to_genus(x)
+tree_to_genus <- function(tree) {
+  tree$tip.label <- first_word(tree$tip.label)
+  keep.tip(tree, unique(tree$tip.label))
 }
 
 prune <- function(tree, taxa) {
@@ -33,19 +24,6 @@ prune <- function(tree, taxa) {
 
 prune.phylo <- function(tree, taxa) {
   keep.tip(tree, intersect(tree$tip.label, taxa))
-}
-
-# condense all species within a genus to a single taxa
-# x - A data frame or tibble
-# col - Column containing species names
-condense_species <- function(x, col) {
-  out <- mutate(x, .g = first_word(.data[[col]]))
-  out <- distinct(out, .g, .keep_all = TRUE)
-  out <- out[[col]]
-  if (all(grepl("_", out, fixed = TRUE))) {
-    return(out)
-  }
-  str_replace_all(out, "[_ ]+", "_")
 }
 
 extend <- function(x, n = 2) {
