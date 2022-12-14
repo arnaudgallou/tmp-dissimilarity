@@ -27,7 +27,11 @@ tree_to_genus <- function(tree, x) {
   tips_to_genus(x)
 }
 
-trim_tree <- function(tree, taxa) {
+prune <- function(tree, taxa) {
+  UseMethod("prune")
+}
+
+prune.phylo <- function(tree, taxa) {
   keep.tip(tree, intersect(tree$tip.label, taxa))
 }
 
