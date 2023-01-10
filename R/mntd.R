@@ -80,7 +80,7 @@
 
 ####  General case  ####
   {
-    # to list of available genera
+    # to list available genera
     get_taxa_list(mdf)
 
     set.seed("011023")
