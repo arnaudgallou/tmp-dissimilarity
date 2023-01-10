@@ -73,10 +73,37 @@
     }
   }
 
-####  Influence of the number of taxa in matrix on MNTD  ####
+# · Tree ----
   {
     ptree <- read.tree("data/tree.txt")
+  }
 
+####  General case  ####
+  {
+    # to list of available genera
+    get_taxa_list(mdf)
+
+    set.seed("011023")
+
+    communities <- mdf %>%
+      get_taxa_tbl(c("erigeron", "rosa")) %>%
+      extend(n = 4) %>%
+      semi_difference(n = 300) %>%
+      to_sparse_matrix(row_names = "grids", col_names = "species")
+
+    pairs <- combn(rownames(communities), m = 2)
+
+    tibble(data = make_distance_df(
+      smat,
+      tree = ptree,
+      pairs = pairs,
+      drop_absent = TRUE
+    )) %>%
+      unnest_wider(col = data)
+  }
+
+####  Influence of the number of taxa in matrix on MNTD  ####
+  {
     communities <- mdf %>%
       get_taxa_tbl("erigeron", "vagus|compositus|clokeyi|coulteri|mancus") %>%
       extend(n = 4)
