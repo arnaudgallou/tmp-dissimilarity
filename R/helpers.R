@@ -94,3 +94,18 @@ get_taxa_list <- function(x, level = c("genus", "species"), within) {
   x <- filter(x, tolower(genus) %in% tolower(within))
   x$species
 }
+
+to_sparse_matrix <- function (x, row_names, col_names) {
+  x <- x[, c(row_names, col_names)]
+  row_names <- factor(x[[row_names]])
+  col_names <- factor(x[[col_names]])
+  Matrix::sparseMatrix(
+    as.integer(row_names),
+    as.integer(col_names),
+    x = 1,
+    dimnames = list(
+      levels(row_names),
+      levels(col_names)
+    )
+  )
+}
