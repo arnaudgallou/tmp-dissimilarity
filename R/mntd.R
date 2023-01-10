@@ -25,7 +25,6 @@
         list(
           item = i[1],
           item_2 = i[2],
-          id = id,
           distance = calc_mntd(data[i, ], tree, drop_absent)
         )
       })
@@ -91,7 +90,11 @@
 
     pairs <- combn(rownames(smat), m = 2)
 
-    tibble(data = make_distance_df(smat, ptree, pairs, 0, drop_absent = TRUE)) %>%
-      unnest_wider(col = data) %>%
-      set_names(c("mountain", "mountain_2", "thermal_band", "phylo_dist"))
+    tibble(data = make_distance_df(
+      smat,
+      tree = ptree,
+      pairs = pairs,
+      drop_absent = TRUE
+    )) %>%
+      unnest_wider(col = data)
   }
