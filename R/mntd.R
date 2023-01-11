@@ -1,3 +1,12 @@
+####  Init  ####
+  {
+    library(tidyverse)
+    library(ape)
+    source("R/helpers.R")
+
+    mdf <- read_csv("data/taxa_df.csv")
+  }
+
 ####  Helpers  ####
   {
     prune <- function(x, y) {
@@ -73,7 +82,7 @@
     }
   }
 
-# · Tree ----
+#### Tree ####
   {
     ptree <- read.tree("data/tree.txt")
   }
@@ -94,7 +103,7 @@
     pairs <- combn(rownames(communities), m = 2)
 
     tibble(data = make_distance_df(
-      smat,
+      communities,
       tree = ptree,
       pairs = pairs,
       drop_absent = TRUE
